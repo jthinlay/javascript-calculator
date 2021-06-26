@@ -35,15 +35,16 @@ const calculate = {
   '-' : (firstNumber, secondNumber) => firstNumber - secondNumber, 
   '=' : (firstNumber, secondNumber) => secondNumber, 
 };
+
 // Use operator
 function useOperator(operator){
     const currentValue = Number(calculatorDisplay.textContent);
-
+   
     // Prevent multiple operators
-    if(operatorValue && awaitingNextValue) {
-        operatorValue  = operator;
-        return;
-    };
+    // if(operatorValue && awaitingNextValue) {
+    //     operatorValue  = operator;
+    //     return;
+    // };
 
     // Assign firstValue if no value
     if(!firstValue){
@@ -56,19 +57,19 @@ function useOperator(operator){
         firstValue = calculation;
     }
     // Ready for next value, store opretor
-    awaitingNextValue = true;
-    operatorValue = operator;
+        awaitingNextValue = true;
+        operatorValue = operator;
     
     // Indication for what operator is using
-    operatorIndicator(operator);
+        operatorIndicator(operator);
 }
 
 function operatorIndicator(operator){
     inputBtns.forEach(inputBtn => {
         if(inputBtn.value === operator){
-            inputBtn.classList.add('red');
-        } else {
-            inputBtn.classList.remove('red')
+                inputBtn.classList.add('red'); 
+            } else {
+                inputBtn.classList.remove('red');
         }
     })
 }
