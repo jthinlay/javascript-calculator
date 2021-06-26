@@ -2,6 +2,15 @@ const calculatorDisplay = document.querySelector('h1');
 const inputBtns = document.querySelectorAll('button');
 const clearBtn = document.getElementById('clear-btn');
 
+// Calculate first and second values dependent on operator
+const calculate = {
+    '/' : (firstNumber, secondNumber) => firstNumber / secondNumber,
+    '*' : (firstNumber, secondNumber) => firstNumber * secondNumber, 
+    '+' : (firstNumber, secondNumber) => firstNumber + secondNumber, 
+    '-' : (firstNumber, secondNumber) => firstNumber - secondNumber, 
+    '=' : (firstNumber, secondNumber) => secondNumber, 
+  };
+
 let firstValue = 0;
 let operatorValue = '';
 let awaitingNextValue = false;
@@ -17,6 +26,7 @@ function sendNumberValue(number){
        calculatorDisplay.textContent  = displayValue === '0' ? number : displayValue + number; 
    }
 }
+
 // Add Dismal 
 function addDecimal(){
     // if operator pressed, don't add decimal
@@ -26,15 +36,6 @@ function addDecimal(){
         calculatorDisplay.textContent = `${calculatorDisplay.textContent}.`;
     } 
 }
-
-// Calculate first and second values dependent on operator
-const calculate = {
-  '/' : (firstNumber, secondNumber) => firstNumber / secondNumber,
-  '*' : (firstNumber, secondNumber) => firstNumber * secondNumber, 
-  '+' : (firstNumber, secondNumber) => firstNumber + secondNumber, 
-  '-' : (firstNumber, secondNumber) => firstNumber - secondNumber, 
-  '=' : (firstNumber, secondNumber) => secondNumber, 
-};
 
 // Use operator
 function useOperator(operator){
@@ -74,6 +75,17 @@ function operatorIndicator(operator){
     })
 }
 
+// Reset all display values
+function resetAll(){
+    inputBtns.forEach(inputBtn => {
+        inputBtn.classList.remove('red')
+    });
+    firstValue = 0;
+    operatorValue = '';
+    awaitingNextValue = false;
+    calculatorDisplay.textContent = '0';
+}
+
 // Add Events Listerns for numbers, operators, dicimal buttons
 inputBtns.forEach(inputBtn => {
     if(inputBtn.classList.length === 0){
@@ -85,15 +97,5 @@ inputBtns.forEach(inputBtn => {
     }
 });
 
-// Reset all display values
-function resetAll(){
-    inputBtns.forEach(inputBtn => {
-        inputBtn.classList.remove('red')
-    });
-    firstValue = 0;
-    operatorValue = '';
-    awaitingNextValue = false;
-    calculatorDisplay.textContent = '0';
-}
 // Event listener
 clearBtn.addEventListener('click', resetAll)
